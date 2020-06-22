@@ -18,6 +18,10 @@ app.set('layout', 'layouts/layout')
 app.use(expressLayouts)
 app.use(express.static(path.join(__dirname,'public')));
 
+// For values from the form
+app.use(express.json());
+app.use(express.urlencoded({ limit: '10mb', extended: false }));
+
 // --------------------- Database connection --------------------
 const mongoose = require('mongoose')
 
