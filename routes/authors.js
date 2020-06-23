@@ -6,7 +6,7 @@ const Author = require('../models/Author')
 // Get all authors
 router.get('/', async (req, res) => {
     let searchOptions = {}
-    if (req.query.name != null && req.query.name !== ''){
+    if (req.query.name != null && req.query.name.trim() !== ''){
         searchOptions.name = new RegExp(req.query.name, 'i')
     }
     try{
@@ -45,7 +45,7 @@ router.delete('/', (req, res) => {
 function saveAndRedirect(path, action) {
     return async(req, res) => {
         let author = req.author
-        author.name = req.body.name
+        author.name = req.body.name.trim()
         try {
             author = await author.save();
             // redirect to that article

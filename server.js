@@ -11,6 +11,7 @@ const path = require('path');
 
 const indexRouter = require('./routes/index')
 const authorRouter = require('./routes/authors')
+const bookRouter = require('./routes/books')
 
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views')
@@ -38,6 +39,7 @@ db.once('open', () => console.log('Connected to database'))
 // --------------------- Views Routes --------------------
 app.use('/', indexRouter)
 app.use('/authors', authorRouter)
+app.use('/books', bookRouter)
 
 // --------------------- Views Routes --------------------
 
