@@ -60,8 +60,19 @@ router.put('/:id', async (req, res, next) => {
 }, saveAndRedirect('edit', 'Editing'))
 
 // Delete author
-router.delete('/:id', (req, res) => {
-    res.send(`Id is ${req.params.id}`)
+router.delete('/:id', async (req, res) => {
+    let author
+    try {
+        author = await Author.findById(req.params.id)
+        await author.remove();
+        res.redirect('/authors')
+    } catch (err) {
+        if (author == null){
+            res.redirect('/')
+        } else{
+            res.redirect(`/authors/${author.id}`)
+        }
+    }
 })
 
 function saveAndRedirect(path, action) {
@@ -69,7 +80,7 @@ function saveAndRedirect(path, action) {
         let author = req.author
         author.name = req.body.name.trim()
         try {
-            author = await author.save();
+            await author.save();
             res.redirect(`/authors/${author.id}`)
         } catch (err) {
             if (author == null){
