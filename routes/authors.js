@@ -30,16 +30,38 @@ router.get('/new', (req, res) => {
 router.post('/', (req, res, next) => {
     req.author = new Author()
     next()
-}, saveAndRedirect('new'))
+}, saveAndRedirect('new', 'Creating'))
 
-// update author
-router.put('/', (req, res) => {
-
+// Get a single author
+router.get('/:id', async (req, res) => {
+    try {
+        const author = await Author.findById(req.params.id)
+        res.render('authors/show', {
+            author
+        })
+    } catch (err) {
+        res.redirect('/authors')
+    }
 })
 
-// Delete author
-router.delete('/', (req, res) => {
+// Get edit author
+router.get('/:id/edit', async (req, res) => {
+    try {
+        const author = await Author.findById(req.params.id)
+        res.render('authors/edit', { author: author })
+    } catch (error) {
+        res.redirect('/authors')
+    }
+})
+// update author
+router.put('/:id', async (req, res, next) => {
+    req.author = await Author.findById(req.params.id)
+    next()
+}, saveAndRedirect('edit', 'Editing'))
 
+// Delete author
+router.delete('/:id', (req, res) => {
+    res.send(`Id is ${req.params.id}`)
 })
 
 function saveAndRedirect(path, action) {
@@ -48,14 +70,16 @@ function saveAndRedirect(path, action) {
         author.name = req.body.name.trim()
         try {
             author = await author.save();
-            // redirect to that article
-            res.redirect('authors')
-            // res.redirect(`/authors/${author.id}`)
+            res.redirect(`/authors/${author.id}`)
         } catch (err) {
-            res.render(`authors/${path}`, { 
-                author: author,
-                errMessage: `Error creating author` 
-            })
+            if (author == null){
+                res.redirect('/')
+            } else{
+                res.render(`authors/${path}`, { 
+                    author: author,
+                    errMessage: `Error ${action} author` 
+                })
+            }
         }
     }
 }

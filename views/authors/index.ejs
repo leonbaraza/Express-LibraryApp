@@ -7,6 +7,8 @@
 </form>
 
 <% authors.forEach(author => { %> 
-    <%= author.name %> 
-    <br>
+    <div><%= author.name %> </div>
+    <a href="/authors/<%= author.id %> ">view</a>
+    <a href="/authors/<%= author.id %>/edit">Edit</a>
+    <%- include('../partials/deleteForm', { url: `/authors/${author.id}` }) %>
 <% }) %> 
