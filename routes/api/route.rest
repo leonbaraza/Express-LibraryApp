@@ -31,3 +31,19 @@ GET http://127.0.0.1:3000/api/authors/5ef31aedb655940cf8735f6a
 ###
 
 DELETE http://127.0.0.1:3000/api/authors/5ef31aedb655940cf8735f6a
+
+### 
+POST http://127.0.0.1:3000/api/authors
+Content-Type: application/json
+
+{
+    "name": "Pamela Wakoli"
+}
+
+### 
+PUT http://127.0.0.1:3000/api/authors
+Content-Type: application/json
+
+{
+    "name": "Pamela Wakoli"
+}

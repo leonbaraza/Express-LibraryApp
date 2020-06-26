@@ -31,6 +31,33 @@ router.delete('/:id', getSingleAuthor, async (req, res) => {
 })
 
 
+router.post('/', (req, res, next) => {
+    req.author = new Author()
+    next()
+}, saveAuthor())
+
+
+router.put('/:id', getSingleAuthor, (req, res, next) => {
+    req.author = res.author
+    next()
+}, saveAuthor())
+
+
+function saveAuthor() {
+    return async(req, res) => {
+        let author = req.author
+        author.name = req.body.name.trim()
+        try {
+            await author.save()
+            res.json(author)
+        } catch (err) {
+            res.status(500).json({ message: err.message })
+        }
+    }
+
+}
+
+
 async function getSingleAuthor(req, res, next) {
     let author
     try {
@@ -44,5 +71,6 @@ async function getSingleAuthor(req, res, next) {
     res.author = author
     next()
 }
+
 
 module.exports = router
