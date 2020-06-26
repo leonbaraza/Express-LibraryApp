@@ -30,6 +30,17 @@ router.get('/', async (req, res) => {
     }
 })
 
+// books by id
+router.get('/:id', async (req, res) => {
+    try {
+        book = await Book.findById(req.params.id)
+                        .populate('author')
+                        .exec()
+        res.json(book)
+    } catch (err) {
+        res.status(400).json({ Error: `Book of id ${req.params.id} not found. Ensure you gave the correct id`})
+    }
+})
 
 
 module.exports = router

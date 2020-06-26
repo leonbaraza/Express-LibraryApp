@@ -8,3 +8,8 @@ GET http://127.0.0.1:3000/api/books
 ### Search
 
 GET http://127.0.0.1:3000/api/books?title=Python&publishedAfter=&publishedBefore=
+
+### Single book by id
+
+GET http://127.0.0.1:3000/api/books/5ef2fcf5aca4661c381b7510
+
