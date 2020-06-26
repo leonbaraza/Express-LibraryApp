@@ -16,6 +16,7 @@ const bookRouter = require('./routes/books')
 
 const homeApi = require('./routes/api/index')
 const booksApi = require('./routes/api/books')
+const authorsApi = require('./routes/api/authors')
 
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views')
@@ -49,6 +50,8 @@ app.use('/books', bookRouter);
 // --------------------- API Routes ----------------------
 app.use('/api/index', homeApi)
 app.use('/api/books', booksApi)
+app.use('/api/authors', authorsApi)
+
 
 app.use(function (req, res, next) {
     res.status(404).send("Sorry can't find that!")

@@ -13,3 +13,21 @@ GET http://127.0.0.1:3000/api/books?title=Python&publishedAfter=&publishedBefore
 
 GET http://127.0.0.1:3000/api/books/5ef2fcf5aca4661c381b7510
 
+### Delete by id
+
+DELETE http://127.0.0.1:3000/api/books/5ef2fcf5aca4661c381b7510
+
+
+### Author
+
+GET http://127.0.0.1:3000/api/authors
+
+
+### Single Author
+
+GET http://127.0.0.1:3000/api/authors/5ef31aedb655940cf8735f6a
+
+
+###
+
+DELETE http://127.0.0.1:3000/api/authors/5ef31aedb655940cf8735f6a
